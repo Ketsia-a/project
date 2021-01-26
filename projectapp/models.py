@@ -64,6 +64,10 @@ class Project(models.Model):
     def get_absolute_url(self):
         return f"/project/{self.id}"
 
+    @classmethod
+    def search_by_name(cls,search_term):
+        certain_user = cls.objects.filter(name__icontains = search_term)
+        return certain_user
 
     def delete_project(self):
         self.delete()
