@@ -1,3 +1,3 @@
 Hello {{name}}
 
-Welcome
+Welcome to the voting/rating app. Thank you for signing up. feel free to leave any message.
