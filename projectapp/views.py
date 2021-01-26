@@ -51,7 +51,7 @@ def search_project(request):
     rates = Rate.objects.all()
     if 'searchproject' in request.GET and request.GET["searchproject"]:
         search_term = request.GET.get("searchproject")
-        searched_project = Project.search_by_title(search_term)
+        searched_project = Project.search_by_name(search_term)
         message = f"{search_term}"
         context = {'projects':searched_project,'message': message}
 
