@@ -1,0 +1,94 @@
+{% extends 'base.html' %} {% load crispy_forms_tags %} {% block content %}
+<div class="container mt-5 mb-5 first">
+    <div class="row ">
+        <div class="card col-md-7">
+            <img class="card-img-top" src="{{ project.project_pic.url }}" alt="-------">
+            <div class="card-body">
+                <h5 class="card-title"><strong>{{project.name|title}}</strong></h5>
+                <p class="card-text"><small class="text-muted">{{project.description}}</small></p>
+                <p class="card-text"><small class="text-muted"><strong>Posted By : </strong> {{ project.user.user.username}}</small></p>
+                <p class="card-text"><small class="text-muted"><strong>On :</strong>{{project.date|date}}</small></p>
+
+                {% for rate in rates %} {% if project.id == rate.project.id %}
+                <div class="row">
+
+                    <div class="col-md-2">
+                        <b>Rated by  {{rate.user.username}}:</b></div>
+                    <div class="col-md-1"></div>
+                    <div class="col-md-3">
+                        <p>design <br>{{rate.design}}</p>
+                    </div>
+                    <div class="col-md-3">
+                        <p>Usability <br> {{rate.usability}}</p>
+                    </div>
+                    <div class="col-md-3">
+                        <p>Content <br> {{rate.content}}</p>
+                    </div>
+                </div>
+                <div class="col">
+                    <hr>
+                </div>
+                {%endif%} {% endfor %} {% if rates %}
+                <h3>Average Rating</h3>
+                <div class="col-md-3">
+                    <div class="row justify-content-center">
+                        <p class="text-center">DESIGN : </p>
+
+                        {{project.avg_design |floatformat}}
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="row justify-content-center">
+                        <p class="text-center">USABILITY : </p>
+
+                        {{project.avg_usability |floatformat}}
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="row justify-content-center">
+                        <p class="text-center">CONTENT : </p>
+
+                        {{project.avg_content |floatformat}}
+                    </div>
+                </div>
+                {%else%}
+                <h3>This project has no ratings</h3>
+                {%endif%}
+            </div>
+            <div class="row justify-content-center">
+                <a href="{{ project.link }}" target="_blank" class="btn btn-outline-dark">View Website</a>
+                <a data-toggle="modal" data-target="#exampleModal2" class="btn btn-outline-dark">Rate Project</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Rate Project</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+            </div>
+            <div class="modal-body">
+                <div class="container">
+                    {% if user.is_authenticated %}
+                    <form action="" method="POST" enctype="multipart/form-data">
+                        {%csrf_token%} {% include 'form.html' %}
+                        <input type="submit" class="btn btn-sm" value="Rate">
+                        <button type="button" class="btn btn-sm" data-dismiss="modal">Close</button>
+                    </form>
+                    {% else %}
+                    <p>Login first to rate this project</p>
+                    {% endif %}
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+{% endblock %}
