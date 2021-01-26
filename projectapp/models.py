@@ -2,15 +2,14 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 from django.dispatch import receiver
-from phone_field import PhoneField
+import numpy as np
 
 # Create your models here.
 
 class Profile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.OneToOneField(User,null=True, on_delete=models.CASCADE)
     first_name = models.CharField(max_length=128)
-    second_name = models.CharField(max_length=128)
-    phone = PhoneField(blank=True, help_text='Contact phone number')
+    last_name = models.CharField(max_length=128)
     bio = models.TextField(max_length=500, blank=True, default='No bio')
     profile_pic = models.ImageField(upload_to='profile/', default='a.png')
 
@@ -39,15 +38,25 @@ class Profile(models.Model):
         return profile       
 
 class Project(models.Model):
-    title = models.CharField(max_length=250, blank=True)
+    name = models.CharField(max_length=250, blank=True)
     project_pic = models.ImageField(upload_to='projectpic/')
     description = models.TextField(max_length=255)
-    project_link = models.URLField(max_length = 200) 
+    link = models.URLField(max_length = 200) 
     date = models.DateTimeField(auto_now_add=True, blank=True)
     user = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='projects')
 
     class Meta:
         ordering = ["-pk"]
+    
+    def avg_design(self):
+        design_rates = list(map(lambda x: x.design, self.project.all()))
+        return np.mean(design_rates)
+    def avg_content(self):
+        content_rates = list(map(lambda x: x.content, self.project.all()))
+        return np.mean(content_rates)
+    def avg_usability(self):
+        usability_rates = list(map(lambda x: x.usability, self.project.all()))
+        return np.mean(usability_rates)    
 
     def save_project(self):
         self.save()
@@ -60,7 +69,7 @@ class Project(models.Model):
         self.delete()
 
     def __str__(self):
-        return self.title
+        return self.name
 
 
 class Rate(models.Model):
