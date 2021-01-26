@@ -7,6 +7,11 @@ from . import views
 urlpatterns=[
     path('',views.home,name = 'home'),
     path('signup/',views.signup , name='signup'),
+    path('profile/<username>/', views.profile, name='profile'),
+	path('search',views.search_project,name = 'search_project'),
+    path('project/<id>',views.project, name='project'),
+    path('api/profiles/', views.ProfileList.as_view()),
+    path('api/projects/', views.ProjectList.as_view()),
 ]
 
 if settings.DEBUG:
