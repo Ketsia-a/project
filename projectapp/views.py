@@ -5,7 +5,6 @@ from django.contrib.auth import login, authenticate
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from .forms import SignUpForm,ProjectForm,UpdateUserProfileForm,RateForm
-from .email import send_welcome_email
 from rest_framework import status,viewsets
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -41,7 +40,6 @@ def signup(request):
             name = form.cleaned_data['username']
             email = form.cleaned_data['email']
             form.save()
-            send_welcome_email(name,email)
             return redirect("/")
     else:
         form = SignUpForm()
