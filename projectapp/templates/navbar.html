@@ -11,10 +11,10 @@
                 <a class="nav-link" href="{% url 'profile' user.username  %}"><img src="{{user.profile.profile_pic.url}}" class="rounded-circle border mx-auto" alt="{{user.username}}" width="25" height="25" style="padding: 0px;"></a>
             </li>
             <div class="dropdown">
-                <a class="btn btn-default dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">API </a>
+                <a class="btn btn-default dropdown-toggle" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">API </a>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                    <a class="dropdown-item" href="{%url 'profile' user.username %}">Profile</a>
-                    <a class="dropdown-item" href="{%url 'project' user.id%}">Project</a>
+                    <a class="dropdown-item" href="{%url 'profile' %}">Profile</a>
+                    <a class="dropdown-item" href="{%url 'project' %}">Projects</a>
                 </div>
             </div>
             <li class="nav-item active"><a class="nav-link" href="/logout">Logout&nbsp;<i class="fas fa-sign-in-alt"></i></a></li>

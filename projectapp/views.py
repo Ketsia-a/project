@@ -89,7 +89,7 @@ def profile(request, username):
 
 @login_required(login_url='login')
 def project(request,id):
-    project = Project.objects.get(id = id)
+    project = Project.objects.get(id =id)
     rates = Rate.objects.order_by('-date')
     current_user = request.user
     if request.method == 'POST':

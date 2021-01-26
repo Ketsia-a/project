@@ -10,8 +10,8 @@ urlpatterns=[
     path('profile/<username>/', views.profile, name='profile'),
 	path('search',views.search_project,name = 'search_project'),
     path('project/<id>',views.project, name='project'),
-    path('api/profiles/', views.ProfileList.as_view()),
-    path('api/projects/', views.ProjectList.as_view()),
+    path('api/profiles/', views.ProfileList.as_view(),name='profile'),
+    path('api/projects/', views.ProjectList.as_view(),name='project' ),
 ]
 
 if settings.DEBUG:

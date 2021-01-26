@@ -40,7 +40,7 @@
             </div>
         </div>
     </div>
-    <h3 class="text-center m-4" style="color: red;">My projects</h3>
+    <h3 class="text-center m-4">my projects</h3>
     <hr>
     <div class="row justify-content-center">
         {% for project in projects %}
@@ -51,7 +51,7 @@
                 <h5 class="card-title"><span>{{project.name}}</span>
                     <span style="float:right"><a href="{{project.link}}" target="_blank"><small><i class="fas fa-share fa-lg"></i></small></a></span></h5>
                 <p class="card-text"><small class="text-muted">{{project.date|date}}</small></p>
-                <a href="#" class="btn btn-block  p-2">Rate Details</a>
+                <a href="{% url 'project' project.id %}" class="btn btn-block  p-2">Details</a>
             </div>
         </div>
 
