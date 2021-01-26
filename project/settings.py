@@ -36,6 +36,8 @@ INSTALLED_APPS = [
     'projectapp',
     'bootstrap4',
     'crispy_forms',
+    'rest_framework',
+    'widget_tweaks',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
